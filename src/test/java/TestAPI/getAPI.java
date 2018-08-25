@@ -1,16 +1,17 @@
 package TestAPI;
 
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
 import static org.testng.Assert.assertEquals;
 
-import org.hamcrest.Matcher;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.hamcrest.Matchers;
 import org.testng.annotations.Test;
 
 import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-
-import static io.restassured.RestAssured.*;
 
 public class getAPI {
 
@@ -20,8 +21,6 @@ public class getAPI {
 	
 	@Test
 	public void testGet1() {
-		when().get("http://34.219.73.53:1000/ords/hr/employees")
-		.then().statusCode(200);
 		
 	}
 
@@ -39,40 +38,27 @@ public class getAPI {
 	// http://34.219.73.53:1000/ords/hr/employees/100
 	// Then status code is 200
 	// And Response content should be json
-	// And first name should be "Steven
+	// And first name should be "Steven"
 	// And employee id is 100
 	
 	@Test
 	public void testGet3() {
-//		given()
-//		.accept(ContentType.JSON)
-//		.when().get("http://34.219.73.53:1000/ords/hr/employees/100")
-//		.then().assertThat().statusCode(200)
-//		.and().contentType(ContentType.JSON)
-//		.and().assertThat().body("first_name", Matchers.equalTo("Steven"));
-		
-		Response response = given()
-		.accept(ContentType.JSON)
-		.when().get("http://34.219.73.53:1000/ords/hr/employees/100");
-		
-		JsonPath json = response.jsonPath();
-		System.out.println(json.getInt("employee_id"));
-		
+
+	}
+
+	/*
+	 * Given Accept type is Json
+	 * And Params are limit=100
+	 * When I send get request to 
+	 * http://34.223.219.142:1212/ords/hr/employee 
+	 * Then status code is 200 
+	 * And Response content should be json 
+	 * all employee ids should be returned
+	 */
+	
+	@Test
+	public void testGet4() {
 		
 	}
 	
-//	given content type is Json
-//	And Accept type is Json
-//	When I send POST request to 
-//	http://34.219.73.53:1000/ords/hr/regions
-//	with request body :
-//	{
-//		"region_id" : 5,
-//		"region_name" : "Antarctica"
-//	}
-//	Then status code should be 201
-//	And response body should match request body
-	
-	
-
 }
