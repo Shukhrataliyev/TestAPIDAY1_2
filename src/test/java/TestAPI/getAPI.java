@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 
 public class getAPI {
 
@@ -22,6 +23,19 @@ public class getAPI {
 	@Test
 	public void testGet1() {
 		
+//		when()
+//		.get("http://34.219.73.53:1000/ords/hr/employees")
+//		.then().assertThat().statusCode(200);
+		
+		Response response = when()
+		.get("http://34.219.73.53:1000/ords/hr/employees")
+		;
+		
+		System.out.println(response);
+		assertEquals(response.statusCode(), 200);
+		
+		
+		
 	}
 
 	// When I send a GET request to REST Url
@@ -30,6 +44,13 @@ public class getAPI {
 
 	@Test
 	public void testGet2() {
+		Response response = when()
+		.get("http://34.219.73.53:1000/ords/hr/employees")
+		;
+		
+		System.out.println(response.asString());
+		//assertEquals(response.statusCode(), 200);
+		
 		
 	}
 	
@@ -43,8 +64,14 @@ public class getAPI {
 	
 	@Test
 	public void testGet3() {
-
+		
+		given().accept(ContentType.JSON)
+		.when().get("http://34.219.73.53:1000/ords/hr/employees/100")
+		.then().assertThat().statusCode(200)
+		.and().contentType(ContentType.JSON)
+		.and().assertThat().body("first_name", Matchers.equalTo("Steven"));
 	}
+	
 
 	/*
 	 * Given Accept type is Json
